@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#b9091b">
+  <meta name="description" content="Página de Carlos Ramirez con sus redes sociales, inspirada en Spider-Man.">
+  <title>Carlos Ramirez | Spider-Man</title>
+  <style>
+    :root {
+      --red: #ed1029;
+      --red-dark: #a9081b;
+      --blue: #0877d1;
+      --blue-deep: #06172f;
+      --ink: #f5f7ff;
+      --muted: #c4d1e5;
+    }
+    * { box-sizing: border-box; }
+    html { min-height: 100%; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(ellipse at 50% 6%, rgba(16, 114, 203, .52), transparent 34rem),
+        radial-gradient(ellipse at 4% 95%, rgba(237, 16, 41, .22), transparent 31rem),
+        linear-gradient(145deg, #030914 0%, #071b36 50%, #030914 100%);
+      display: grid;
+      place-items: center;
+      padding: 28px 16px;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .23;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360' viewBox='0 0 360 360'%3E%3Cg fill='none' stroke='%23d4e8ff' stroke-width='1.1' opacity='.62'%3E%3Cpath d='M180 0V360M0 180H360M53 53L307 307M307 53L53 307M180 0Q170 100 90 180Q170 190 180 360M0 180Q100 170 180 90Q190 170 360 180M180 0Q190 100 270 180Q190 190 180 360M0 180Q100 190 180 270Q190 190 360 180'/%3E%3Ccircle cx='180' cy='180' r='48'/%3E%3Ccircle cx='180' cy='180' r='96'/%3E%3Ccircle cx='180' cy='180' r='144'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 360px 360px;
+      mask-image: linear-gradient(to bottom, black, transparent 90%);
+    }
+    .page { width: min(100%, 470px); position: relative; z-index: 1; }
+    .card {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      text-align: center;
+      padding: 34px 25px 24px;
+      border: 1px solid rgba(178, 213, 255, .2);
+      border-radius: 28px;
+      background: linear-gradient(165deg, rgba(11, 31, 58, .94), rgba(4, 12, 27, .96));
+      box-shadow: 0 24px 75px rgba(0, 0, 0, .48), 0 0 35px rgba(0, 115, 220, .13);
+      backdrop-filter: blur(10px);
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      top: 0; left: 0; right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--red), #ff5261 48%, var(--blue));
+    }
+    .logo-wrap {
+      width: 122px;
+      height: 122px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 18px;
+      border: 2px solid rgba(255, 255, 255, .18);
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 20%, #e91d35, #790617 72%);
+      box-shadow: 0 0 0 7px rgba(237, 16, 41, .08), 0 0 35px rgba(237, 16, 41, .22);
+    }
+    .logo-wrap img { display: block; width: 79px; height: 79px; object-fit: contain; }
+    .brand-mark { width: 76px; height: 82px; display: none; }
+    .eyebrow {
+      margin: 0 0 8px;
+      color: #ff6978;
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 0;
+      color: white;
+      font-size: clamp(2.1rem, 8vw, 3rem);
+      line-height: 1.05;
+      letter-spacing: -.045em;
+      text-shadow: 0 3px 22px rgba(0, 113, 220, .35);
+    }
+    .name-line { width: 72px; height: 4px; border-radius: 99px; margin: 17px auto 15px; background: linear-gradient(90deg, var(--red), var(--blue)); }
+    .description { margin: 0 auto 26px; max-width: 300px; color: var(--muted); line-height: 1.6; font-size: .98rem; }
+    .socials { display: grid; gap: 12px; }
+    .social-link {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-height: 66px;
+      padding: 12px 17px;
+      border: 1px solid rgba(212, 232, 255, .13);
+      border-radius: 15px;
+      color: white;
+      text-align: left;
+      text-decoration: none;
+      background: rgba(255, 255, 255, .045);
+      transition: transform .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
+    }
+    .social-link:hover, .social-link:focus-visible {
+      transform: translateY(-3px);
+      outline: none;
+      border-color: rgba(255, 255, 255, .38);
+      background: rgba(255, 255, 255, .09);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, .2);
+    }
+    .social-icon {
+      width: 41px; height: 41px; flex: 0 0 41px;
+      border-radius: 12px;
+      display: grid; place-items: center;
+      font-size: 1.3rem; font-weight: 900;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.15);
+    }
+    .facebook .social-icon { background: #1877f2; font-family: Arial, sans-serif; font-size: 1.8rem; }
+    .tiktok .social-icon { background: linear-gradient(135deg, #111, #252535); }
+    .instagram .social-icon { background: linear-gradient(135deg, #7b2cff, #f02c75 55%, #ffad3b); }
+    .whatsapp .social-icon { background: #20b85a; }
+    .phone .social-icon { background: linear-gradient(135deg, #0877d1, #064c91); }
+    .social-copy { flex: 1; min-width: 0; }
+    .social-title { display: block; font-weight: 800; font-size: 1rem; }
+    .social-handle { display: block; margin-top: 2px; color: #b9c8dc; font-size: .84rem; overflow-wrap: anywhere; }
+    .arrow { color: #a9c9ef; font-size: 1.3rem; padding-left: 4px; }
+    .footer { margin: 22px 0 0; color: #8398b5; font-size: .74rem; line-height: 1.6; }
+    .footer a { color: #afc8e8; }
+    .web-stamp { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 22px; color: #9eafc7; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; }
+    .web-stamp::before, .web-stamp::after { content: ""; width: 30px; height: 1px; background: linear-gradient(90deg, transparent, #ed1029); }
+    .web-stamp::after { transform: scaleX(-1); }
+    @media (max-width: 380px) {
+      .card { padding: 28px 17px 20px; }
+      .logo-wrap { width: 108px; height: 108px; }
+      .social-link { padding: 11px 12px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="card" aria-label="Redes sociales de Carlos Ramirez">
+      <div class="logo-wrap" aria-label="Emblema inspirado en Spider-Man">
+        <!-- Puedes reemplazar la URL del src por el enlace directo de tu imagen preferida. -->
+        <img
+          src="https://www.pngfind.com/pngs/m/125-1259974_transparent-spider-logo-sam-raimi-spiderman-symbol-hd.png"
+          alt="Emblema de araña inspirado en Spider-Man"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+        >
+        <svg class="brand-mark" viewBox="0 0 100 110" role="img" aria-label="Símbolo de araña">
+          <g fill="#ffffff" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="50" cy="55" rx="10" ry="24" />
+            <ellipse cx="50" cy="32" rx="7" ry="11" />
+            <path d="M43 39 L18 16 L10 17 L27 45 L7 43 L5 50 L31 58 L13 82 L20 86 L43 65" stroke-width="5" />
+            <path d="M57 39 L82 16 L90 17 L73 45 L93 43 L95 50 L69 58 L87 82 L80 86 L57 65" stroke-width="5" />
+            <path d="M43 53 L27 71 L22 98 L30 100 L47 70 M57 53 L73 71 L78 98 L70 100 L53 70" fill="none" stroke-width="5" />
+          </g>
+        </svg>
+      </div>
+      <p class="eyebrow">Tu friendly neighborhood</p>
+      <h1>Carlos Ramirez</h1>
+      <div class="name-line" aria-hidden="true"></div>
+      <p class="description">¡Bienvenido a mi universo! 🕷️<br>Conéctate conmigo en mis redes sociales.</p>
+
+      <nav class="socials" aria-label="Enlaces a redes sociales">
+        <a class="social-link facebook" href="https://www.facebook.com/profile.php?id=100083017081947" target="_blank" rel="noopener noreferrer">
+          <span class="social-icon" aria-hidden="true">f</span>
+          <span class="social-copy"><span class="social-title">Facebook</span><span class="social-handle">Visita mi perfil</span></span>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="social-link tiktok" href="https://www.tiktok.com/@sebasx2803" target="_blank" rel="noopener noreferrer">
+          <span class="social-icon" aria-hidden="true">♪</span>
+          <span class="social-copy"><span class="social-title">TikTok</span><span class="social-handle">@sebasx2803</span></span>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="social-link instagram" href="https://www.instagram.com/csrv28/" target="_blank" rel="noopener noreferrer">
+          <span class="social-icon" aria-hidden="true">◎</span>
+          <span class="social-copy"><span class="social-title">Instagram</span><span class="social-handle">@csrv28</span></span>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="social-link whatsapp" href="https://wa.me/593986233472" target="_blank" rel="noopener noreferrer" aria-label="Contactar a Carlos Ramirez por WhatsApp al +593 98 623 3472">
+          <span class="social-icon" aria-hidden="true">☏</span>
+          <span class="social-copy"><span class="social-title">WhatsApp</span><span class="social-handle">+593 98 623 3472 · Enviar mensaje</span></span>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="social-link phone" href="tel:+593986233472" aria-label="Llamar a Carlos Ramirez al +593 98 623 3472">
+          <span class="social-icon" aria-hidden="true">☎</span>
+          <span class="social-copy"><span class="social-title">Llamar por teléfono</span><span class="social-handle">+593 98 623 3472</span></span>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+      </nav>
+      <div class="web-stamp">Spider style</div>
+    </section>
+    <p class="footer">Página personal de fans. Spider-Man pertenece a sus respectivos titulares.<br>Emblema referencial: <a href="https://commons.wikimedia.org/wiki/File:Spider-Man_Logo.png" target="_blank" rel="noopener noreferrer">logo de araña en Wikimedia Commons</a>.</p>
+  </main>
+</body>
+</html>
